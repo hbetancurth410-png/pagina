@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TareaLand | Organiza, entrega y aprende</title>
+<style>
+:root{--purple:#7651c8;--purple-dark:#5e3ca8;--lavender:#eee8ff;--ink:#292638;--muted:#777386;--line:#e7e3ef;--paper:#fff;--green:#27875c;--red:#d94c61;--yellow:#f4d96a}
+*{box-sizing:border-box}body{margin:0;background:#f6f4fb;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:1500px;min-height:100vh;margin:auto;display:grid;grid-template-columns:230px minmax(0,1fr);background:#fff;box-shadow:0 12px 45px #3e28501a}
+.sidebar{padding:24px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:24px;background:#fdfcff}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px}.brand-mark{width:40px;height:40px;background:var(--purple);color:white;border-radius:13px;display:grid;place-items:center;font-size:22px;font-weight:900}.brand h1{font-size:20px;margin:0;color:var(--purple-dark)}.brand small{display:block;color:var(--muted);font-size:11px}
+.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;text-align:left;padding:12px;border-radius:12px;color:#625d70;display:flex;gap:12px;align-items:center}.nav button span{font-size:19px;width:22px;text-align:center}.nav button.active,.nav button:hover{background:var(--lavender);color:var(--purple-dark);font-weight:700}
+.profile{margin-top:auto;border:1px solid var(--line);border-radius:15px;padding:12px;display:flex;align-items:center;gap:10px}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#f5dce6;font-size:23px}.profile strong{font-size:13px;display:block}.profile small{font-size:11px;color:var(--muted)}.progress{padding:13px;border:1px solid var(--line);border-radius:14px}.progress-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:10px}.bar{height:9px;background:#e9e5f0;border-radius:20px;overflow:hidden}.bar div{height:100%;width:75%;background:var(--purple);border-radius:20px}
+main{min-width:0;padding:24px 28px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:25px}.welcome h2{margin:0 0 5px;font-size:23px}.welcome p{margin:0;color:var(--muted);font-size:13px}.top-actions{display:flex;align-items:center;gap:12px}.icon-btn{border:1px solid var(--line);background:#fff;border-radius:12px;width:42px;height:42px;font-size:19px}.user-chip{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}.user-chip .avatar{width:38px;height:38px}
+.columns{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(310px,.95fr);gap:24px;align-items:start}.panel{border:1px solid var(--line);border-radius:18px;background:#fff;padding:22px;box-shadow:0 4px 16px #33234a08}.panel-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.panel-heading h3{margin:0;font-size:17px}.eyebrow{color:var(--purple);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:800;margin-bottom:6px}
+.field{margin-bottom:15px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#4e495e}.field input,.field select,.field textarea{width:100%;border:1px solid #ddd7e9;border-radius:10px;padding:11px 12px;outline:none;background:#fff;color:var(--ink)}.field textarea{resize:vertical;min-height:86px}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #7651c81a}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.upload{border:1.5px dashed #b7a3e7;border-radius:12px;padding:16px;text-align:center;background:#fbf9ff;color:#6d5b93;font-size:12px}.upload input{max-width:100%;font-size:11px;margin-top:8px}.file-name{font-size:11px;color:var(--muted);margin-top:5px}.actions{display:flex;gap:10px;margin-top:18px}.btn{border:0;border-radius:11px;padding:11px 16px;font-weight:700;font-size:13px}.btn-primary{background:var(--purple);color:white;box-shadow:0 5px 12px #7651c82b}.btn-primary:hover{background:var(--purple-dark)}.btn-light{background:#f2eff8;color:#5c536f}
+.task-tools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:15px}.filter{border:1px solid var(--line);background:#fff;color:#706a7e;padding:7px 12px;border-radius:9px;font-size:12px}.filter.active{background:var(--lavender);border-color:#d8c9ff;color:var(--purple-dark);font-weight:800}.task-list{display:grid;gap:11px}.task{border:1px solid var(--line);border-radius:13px;padding:13px;display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:11px;align-items:center}.task-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:19px;background:#e5edff}.task-icon.green{background:#e0f5e9}.task-icon.yellow{background:#fff5ce}.task-icon.pink{background:#ffe8ed}.task h4{margin:0 0 4px;font-size:13px}.task p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}.task-meta{display:flex;align-items:center;gap:7px;margin-top:7px;flex-wrap:wrap}.status{font-size:10px;font-weight:800;padding:4px 7px;border-radius:7px;background:#fff1d7;color:#986914}.status.done{background:#e2f7e9;color:#238052}.status.late{background:#ffe6e9;color:#bd3d50}.due{font-size:10px;color:var(--muted)}.task-buttons{display:flex;gap:5px}.small-btn{border:1px solid var(--line);background:#fff;border-radius:8px;width:30px;height:30px;color:#6b5b91}.small-btn.delete{color:var(--red)}.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}
+.notice{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#292638;color:white;padding:12px 18px;border-radius:12px;box-shadow:0 8px 30px #0002;font-size:13px;display:none;z-index:5}.notice.show{display:block}
+@media(max-width:950px){.app{grid-template-columns:190px minmax(0,1fr)}main{padding:20px}.columns{grid-template-columns:1fr}.sidebar{padding:18px 12px}}
+@media(max-width:650px){.app{display:block}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px;gap:12px}.brand{padding:0}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap;padding:9px}.profile,.progress{display:none}main{padding:16px}.topbar{align-items:flex-start}.welcome h2{font-size:19px}.user-chip span:last-child{display:none}.panel{padding:16px}.two{grid-template-columns:1fr}.task{grid-template-columns:35px minmax(0,1fr) auto;gap:8px}.task-icon{width:35px;height:35px}.task-buttons{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">▦</div><div><h1>TareaLand</h1><small>Organiza, entrega y aprende</small></div></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <button class="active" data-nav="Inicio"><span>⌂</span>Inicio</button>
+      <button data-nav="Mis tareas"><span>▤</span>Mis tareas</button>
+      <button data-nav="Entregar tarea"><span>⇧</span>Entregar tarea</button>
+      <button data-nav="Calendario"><span>▦</span>Calendario</button>
+      <button data-nav="Mensajes"><span>▱</span>Mensajes <b style="margin-left:auto;color:var(--purple)">3</b></button>
+      <button data-nav="Calificaciones"><span>☆</span>Calificaciones</button>
+      <button data-nav="Recursos"><span>▱</span>Recursos</button>
+      <button data-nav="Configuración"><span>⚙</span>Configuración</button>
+    </nav>
+    <div class="profile"><div class="avatar">👩🏻‍🎓</div><div><strong>Camila M.</strong><small>camila.m@mi.edu.co</small></div></div>
+    <div class="progress"><div class="progress-top"><span>Tu progreso</span><strong>Nivel 4 · 75%</strong></div><div class="bar"><div></div></div></div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <div class="welcome"><h2>¡Bienvenida, Camila! 👋</h2><p>Aquí puedes entregar tus tareas y ver su estado.</p></div>
+      <div class="top-actions"><button class="icon-btn" title="Notificaciones" id="notifications">♧</button><div class="user-chip"><div class="avatar">CM</div><span>Camila M.⌄</span></div></div>
+    </header>
+    <div class="columns">
+      <section class="panel" id="form-panel">
+        <div class="eyebrow">✦ Espacio académico</div>
+        <div class="panel-heading"><h3 id="form-title">Entregar nueva tarea</h3></div>
+        <form id="task-form">
+          <div class="field"><label for="subject">Asignatura</label><select id="subject" required><option value="">Selecciona una asignatura</option><option>Matemáticas</option><option>Lengua castellana</option><option>Ciencias naturales</option><option>Historia</option><option>Inglés</option><option>Informática</option></select></div>
+          <div class="field"><label for="title">Título de la tarea</label><input id="title" required placeholder="Ej. Área de un rectángulo"></div>
+          <div class="field"><label for="description">Descripción</label><textarea id="description" placeholder="Describe brevemente la actividad..."></textarea></div>
+          <div class="field"><label for="attachment">Adjuntar archivo</label><div class="upload">☁️<br><strong>Selecciona un archivo</strong><br>PDF, DOCX o imagen<input id="attachment" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"></div><div class="file-name" id="file-name">Ningún archivo seleccionado</div></div>
+          <div class="two">
+            <div class="field"><label for="date">Fecha de entrega</label><input id="date" type="date" required></div>
+            <div class="field"><label for="time">Hora de entrega</label><input id="time" type="time" value="23:59" required></div>
+          </div>
+          <div class="actions"><button type="button" class="btn btn-light" id="clear">♲ Limpiar</button><button type="submit" class="btn btn-primary" id="submit-btn">⇧ Entregar tarea</button></div>
+        </form>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">✦ Tu espacio de estudio</div>
+        <div class="panel-heading"><h3>Mis tareas</h3><span id="task-count" style="font-size:12px;color:var(--muted)">5 tareas</span></div>
+        <div class="task-tools" id="filters">
+          <button class="filter active" data-filter="Todas">Todas</button><button class="filter" data-filter="Pendiente">Pendientes</button><button class="filter" data-filter="En revisión">En revisión</button><button class="filter" data-filter="Entregada">Entregadas</button>
+        </div>
+        <div class="task-list" id="task-list"></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="notice" id="notice" role="status"></div>
+<script>
+const initialTasks = [
+ {id:1,subject:"Matemáticas",title:"Área de un rectángulo",description:"Hallar el área utilizando la fórmula A = b × h.",date:"2026-10-24",time:"23:59",status:"Pendiente",icon:"📘",color:""},
+ {id:2,subject:"Ciencias naturales",title:"Informe de laboratorio: energías renovables",description:"Organizar los resultados de la práctica.",date:"2026-10-22",time:"18:00",status:"Entregada",icon:"♧",color:"green"},
+ {id:3,subject:"Historia",title:"Ensayo de historia",description:"Desarrollar las ideas principales del tema visto en clase.",date:"2026-10-25",time:"20:00",status:"Entregada",icon:"📖",color:"yellow"},
+ {id:4,subject:"Lengua castellana",title:"Análisis literario",description:"Análisis del texto asignado en clase.",date:"2026-10-21",time:"23:59",status:"En revisión",icon:"✏️",color:"yellow"},
+ {id:5,subject:"Ciencias naturales",title:"Mapa conceptual",description:"Crear un mapa conceptual de los conceptos principales.",date:"2026-10-27",time:"23:59",status:"Pendiente",icon:"🌐",color:"pink"}
+];
+let tasks = initialTasks.map(t=>({...t}));
+let activeFilter="Todas", editingId=null;
+const $=id=>document.getElementById(id);
+function showNotice(message){const n=$("notice");n.textContent=message;n.classList.add("show");setTimeout(()=>n.classList.remove("show"),2600)}
+function dateLabel(value){if(!value)return "Sin fecha";const [y,m,d]=value.split("-");return `${d}/${m}/${y}`}
+function renderTasks(){
+ const filtered=tasks.filter(t=>activeFilter==="Todas"||t.status===activeFilter);
+ $("task-count").textContent=`${filtered.length} ${filtered.length===1?"tarea":"tareas"}`;
+ $("task-list").innerHTML=filtered.length?filtered.map(t=>`
+ <article class="task">
+  <div class="task-icon ${t.color}">${t.icon}</div>
+  <div><h4>${escapeHTML(t.title)}</h4><p>${escapeHTML(t.subject)}${t.description?" · "+escapeHTML(t.description):""}</p>
+   <div class="task-meta"><span class="status ${t.status==="Entregada"?"done":t.status==="En revisión"?"":"late"}">${t.status}</span><span class="due">📅 ${dateLabel(t.date)} · ${t.time}</span></div>
+  </div>
+  <div class="task-buttons"><button class="small-btn" title="Editar" data-edit="${t.id}">✎</button><button class="small-btn delete" title="Eliminar" data-delete="${t.id}">▣</button></div>
+ </article>`).join(""):`<div class="empty">📚<br><br>No hay tareas en esta categoría.</div>`;
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function resetForm(){ $("task-form").reset();$("time").value="23:59";$("file-name").textContent="Ningún archivo seleccionado";editingId=null;$("form-title").textContent="Entregar nueva tarea";$("submit-btn").textContent="⇧ Entregar tarea"; }
+$("attachment").addEventListener("change",e=>{$("file-name").textContent=e.target.files[0]?.name||"Ningún archivo seleccionado"});
+$("task-form").addEventListener("submit",e=>{
+ e.preventDefault();
+ const subject=$("subject").value,title=$("title").value.trim(),description=$("description").value.trim(),date=$("date").value,time=$("time").value;
+ if(!subject||!title||!date||!time){showNotice("Completa los campos obligatorios.");return}
+ if(editingId){tasks=tasks.map(t=>t.id===editingId?{...t,subject,title,description,date,time}:t);showNotice("Tarea actualizada correctamente.");}
+ else {tasks.unshift({id:Date.now(),subject,title,description,date,time,status:"Entregada",icon:subject==="Matemáticas"?"📘":subject==="Historia"?"📖":"📝",color:""});showNotice("¡Tu tarea fue entregada!");}
+ activeFilter="Todas";document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===activeFilter));renderTasks();resetForm();
+});
+$("clear").addEventListener("click",()=>{resetForm();showNotice("Formulario limpiado.")});
+$("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(!b)return;activeFilter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderTasks()});
+$("task-list").addEventListener("click",e=>{
+ const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");
+ if(edit){const t=tasks.find(x=>x.id===Number(edit.dataset.edit));if(!t)return;editingId=t.id;$("subject").value=t.subject;$("title").value=t.title;$("description").value=t.description;$("date").value=t.date;$("time").value=t.time;$("form-title").textContent="Editar tarea";$("submit-btn").textContent="Guardar cambios";$("form-panel").scrollIntoView({behavior:"smooth",block:"start"});}
+ if(del){const id=Number(del.dataset.delete);tasks=tasks.filter(t=>t.id!==id);renderTasks();showNotice("Tarea eliminada.");}
+});
+document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active",x===b));if(b.dataset.nav==="Entregar tarea")$("form-panel").scrollIntoView({behavior:"smooth"});else if(b.dataset.nav==="Mis tareas")$("task-list").scrollIntoView({behavior:"smooth"});else showNotice(`Sección: ${b.dataset.nav}`)}));
+$("notifications").addEventListener("click",()=>showNotice("No tienes notificaciones nuevas."));
+renderTasks();
+</script>
+</body>
+</html>
